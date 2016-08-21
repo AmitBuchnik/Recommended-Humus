@@ -311,7 +311,7 @@ class HumusPlacesList {
         $(li).addClass('ui-li-has-alt'); // ui-screen-hidden
 
         let button = document.createElement('a');
-        $(button).click(function () {
+        $(button).one('click', function () {
             humusPlacesList.goToMarker(obj.id);
             $("#tabs").tabs('option', 'active', 0);
             $("#nbSearch").removeClass("ui-btn-active"); // display not active to serach tab
@@ -319,7 +319,7 @@ class HumusPlacesList {
         }).html(title).addClass('ui-btn ui-btn-inline'); // ui-btn-icon-left ui-icon-carat-l
 
         let divider = document.createElement('a');
-        $(divider).click(function () {
+        $(divider).one('click', function () {
             $('#dialogTitle').html(obj.name);
             $('#dialogHeader').html('בטוח שברצונך למחוק?');
             $('#btnDialogCancel').show();
@@ -405,7 +405,7 @@ class HumusPlacesList {
                 $('#humusAddedDialog').popup('open', {transition: 'fade'});
 
                 // yes
-                $('#btnAddedYes').click(function () {
+                $('#btnAddedYes').one('click', function () {
                     let id = places.length;
                     let p = new HumusPlace(id,
                         newPlaceName,
@@ -426,7 +426,7 @@ class HumusPlacesList {
                     $('#btnAddedMap').show();
 
                     // go to map
-                    $('#btnAddedMap').click(function () {
+                    $('#btnAddedMap').one('click', function () {
                         $("#tabs").tabs('option', 'active', 0);
                         $("#nbAdd").removeClass("ui-btn-active");
                         $("#nbMap").addClass("ui-btn-active");
@@ -466,7 +466,7 @@ class HumusPlacesList {
                  },
                  'map_icon_label': '<span class="map-icon map-icon-restaurant"></span>',*/
                 'bounds': false
-            }).click(function () {
+            }).one('click', function () {
             $('#mymap').gmap('openInfoWindow', {
                 'content': '<div id="iw-container">'
                 + '<div class="iw-title">' + name + '</div>'
@@ -542,7 +542,7 @@ $(document).on('pageshow' ,function () {
     $('#mymap').gmap({'center': '32.077797, 34.778067', 'zoom': 15, 'mapTypeId': google.maps.MapTypeId.ROADMAP});
 
     let map = $('#mymap').gmap('get', 'map');
-    $(map).click(function () {
+    $(map).one('click', function () {
         $('#mymap').gmap('closeInfoWindow');
     });
 
