@@ -100,7 +100,6 @@ indxDB.openDB = function () {
 
         let objectStore = indxDB.dbDatabase.createObjectStore('humus', {autoIncrement: true});
 
-        //db.index = objectStore.index('date');
         objectStore.createIndex('index', 'id', {unique: false});
         console.log("creating db: " + indxDB.dbDatabase);
 
@@ -118,7 +117,6 @@ indxDB.openDB = function () {
                             val.address,
                             val.lat,
                             val.lng)
-                        //humusPlacesList.add(place);
                         indxDB.addItem(place);
                     });
                     indxDB.readAllItems();
@@ -396,6 +394,7 @@ class HumusPlacesList {
                     return;
                 }
 
+                // add?
                 $('#addedPlaceName').html(newPlaceName);
                 $('#addedTitle').html('להוסיף?');
                 $('#addedPlaceCity').html(city);
@@ -405,6 +404,7 @@ class HumusPlacesList {
                 $('#btnAddedMap').hide();
                 $('#humusAddedDialog').popup('open', {transition: 'fade'});
 
+                // yes
                 $('#btnAddedYes').click(function () {
                     let id = places.length;
                     let p = new HumusPlace(id,
@@ -416,6 +416,7 @@ class HumusPlacesList {
                     humusPlacesList.add(p);
                     indxDB.addItem(p);
 
+                    // added
                     $('#addedPlaceName').html(newPlaceName);
                     $('#addedTitle').html('הוסף בהצלחה');
                     $('#addedPlaceCity').html(city);
@@ -424,6 +425,7 @@ class HumusPlacesList {
                     $('#btnAddedNo').hide();
                     $('#btnAddedMap').show();
 
+                    // go to map
                     $('#btnAddedMap').click(function () {
                         $("#tabs").tabs('option', 'active', 0);
                         $("#nbAdd").removeClass("ui-btn-active");
@@ -480,7 +482,7 @@ class HumusPlacesList {
         $('#mymap').gmap('find', 'markers', { } , function(marker) {
             if(marker.id == id) {
                 $('#mymap').gmap('get','map').setOptions({'center': marker.position});
-                google.maps.event.trigger(marker,'click');
+                google.maps.event.trigger(marker, 'click');
             }
         });
     }
@@ -491,6 +493,7 @@ class HumusPlacesList {
 }
 
 var humusPlacesList = new HumusPlacesList();
+
 var humusUtils = {};
 
 humusUtils.showMessage = function (title, text) {
@@ -552,34 +555,6 @@ $(document).on('pageshow' ,function () {
         }
         else {
             console.debug("database " + name + " does not exists");
-        }
-    });*/
-
-    /*$.ajax({
-        url: 'humusplaces.json',
-        dataType: 'json',
-        success: function (data, status) {
-            $('#imgSpinner').hide();
-
-            $('#mymap').gmap({'center': data[0].lat + "," + data[0].lng, 'zoom': 15, 'mapTypeId': google.maps.MapTypeId.ROADMAP})
-
-            let map = $('#mymap').gmap('get', 'map');
-            $(map).click(function () {
-                $('#mymap').gmap('closeInfoWindow');
-            });
-
-            $.each(data, function (key, val) {
-                humusPlacesList.add(new HumusPlace(key,
-                                                   val.name,
-                                                   val.city,
-                                                   val.address,
-                                                   val.lat,
-                                                   val.lng));
-            });
-        },
-        error: function (xhr, status, error) {
-            $('#spinner').hide();
-            console.log(status + " " + error);
         }
     });*/
 
