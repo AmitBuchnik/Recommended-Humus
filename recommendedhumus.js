@@ -98,9 +98,8 @@ indxDB.openDB = function () {
 
         //db.dbDatabase.deleteObjectStore('humus');
 
-        let objectStore = indxDB.dbDatabase.createObjectStore('humus', {autoIncrement: true});
-
-        objectStore.createIndex('index', 'id', {unique: false});
+        let objectStore = indxDB.dbDatabase.createObjectStore('humus', {keyPath: 'id', autoIncrement: false});
+        //objectStore.createIndex('id', 'id', {unique: true});
         console.log("creating db: " + indxDB.dbDatabase);
 
         let transaction = event.target.transaction;
@@ -165,7 +164,7 @@ indxDB.addItem = function (obj = {id: id, name: name, city: city, address: addre
     var newItem = [ {id: obj.id, name: obj.name, city: obj.city, address: obj.address, lat: obj.lat, lng: obj.lng} ];
 
     // open a read/write db transaction, ready for adding the data
-    var transaction = indxDB.dbDatabase.transaction(['humus'], 'readwrite')
+    var transaction = indxDB.dbDatabase.transaction('humus', 'readwrite')
 
     // report on the success of opening the transaction
     transaction.oncomplete = function(event) {
@@ -255,9 +254,9 @@ indxDB.readAllItems = function() {
 }
 
 indxDB.removeItem = function(id) {
-    let request = indxDB.dbDatabase.transaction(['humus'], 'readwrite')
+    let request = indxDB.dbDatabase.transaction('humus', 'readwrite')
         .objectStore('humus')
-        .delete(id);
+        .delete(+id);
 
     request.onsuccess = function (event) {
         console.log("removeItem(): the data item was removed from the database");
@@ -304,14 +303,13 @@ class HumusPlacesList {
         this.places.push(obj);
 
         // add to listview
-        let title = "<span style='font-size: 0.9em; font-weight: 600'>" + obj.id + ". </span>"
-            + "<span style='font-size: 0.9'; font-weight: 600'>" + obj.name + ", " +  obj.address + " " + obj.city + "</span>";
+        let title = "<span style=font-size: 0.9; font-weight: 600>" + obj.name + ", " +  obj.address + " " + obj.city + "</span>";
 
         let li = document.createElement('li');
         $(li).addClass('ui-li-has-alt'); // ui-screen-hidden
 
         let button = document.createElement('a');
-        $(button).one('click', function () {
+        $(button).click(function () {
             humusPlacesList.goToMarker(obj.id);
             $("#tabs").tabs('option', 'active', 0);
             $("#nbSearch").removeClass("ui-btn-active"); // display not active to serach tab
@@ -319,7 +317,7 @@ class HumusPlacesList {
         }).html(title).addClass('ui-btn ui-btn-inline'); // ui-btn-icon-left ui-icon-carat-l
 
         let divider = document.createElement('a');
-        $(divider).one('click', function () {
+        $(divider).click(function () {
             $('#dialogTitle').html(obj.name);
             $('#dialogHeader').html('בטוח שברצונך למחוק?');
             $('#btnDialogCancel').show();
@@ -348,8 +346,8 @@ class HumusPlacesList {
         if (index > -1) {
             this.places.splice(index, 1);
         }
-        this.removeMarker(place.id);
-        indxDB.removeItem(place.id);
+        this.removeMarker(id);
+        indxDB.removeItem(id);
     }
 
     /*get(id) {
@@ -466,7 +464,7 @@ class HumusPlacesList {
                  },
                  'map_icon_label': '<span class="map-icon map-icon-restaurant"></span>',*/
                 'bounds': false
-            }).one('click', function () {
+            }).click(function () {
             $('#mymap').gmap('openInfoWindow', {
                 'content': '<div id="iw-container">'
                 + '<div class="iw-title">' + name + '</div>'
@@ -542,7 +540,7 @@ $(document).on('pageshow' ,function () {
     $('#mymap').gmap({'center': '32.077797, 34.778067', 'zoom': 15, 'mapTypeId': google.maps.MapTypeId.ROADMAP});
 
     let map = $('#mymap').gmap('get', 'map');
-    $(map).one('click', function () {
+    $(map).click(function () {
         $('#mymap').gmap('closeInfoWindow');
     });
 
