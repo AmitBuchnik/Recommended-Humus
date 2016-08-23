@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="mobile-web-app-capable" content="yes">
-    <!-- <link rel="shortcut icon" sizes="196x196" href="recommendedhumus.gif">-->
+     <link rel="shortcut icon" sizes="196x196" href="img/humus.gif">
     <title>Recommended Humus</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
     <link rel="stylesheet" type="text/css" href="recommendedhumus.css" />
@@ -22,7 +22,8 @@
 <body>
 <div data-role="page" data-dom-cache="true" id="main">
     <div data-role="tabs" id="tabs">
-        <div data-role="header" id="header" data-position="fixed" data-tap-toggle="false">
+        <div data-role="header" id="header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false"
+             >
             <h1>חומוסיות מומלצות</h1>
             <!--<a id="spinner" href="#" class="ui-btn-right"></a>-->
         <div data-role="navbar" id="nav">
@@ -64,9 +65,11 @@
             </div>
         </div>
         <div id="pSearch" class="ui-content">
-            <input id="filter" data-type="search" placeholder="חפש..." style="direction: rtl; text-align: right;"/>
+            <div class="ui-filterable">
+                <input id="filter" data-type="search" placeholder="חפש..." style="direction: rtl; text-align: right;"/>
+            </div>
             <ul data-role="listview" id="list" data-inset="true" data-filter="true" data-filter-reveal="false" data-split-icon="delete"
-                  data-input="#filter" class="ui-filterable"></ul>
+                      data-input="#filter"></ul>
         </div>
         <div data-position-to="window" data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="a"
              style="min-width:250px; min-height: 100px">
