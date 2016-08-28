@@ -42,7 +42,7 @@
             <div class="inline-form ui-content">
                 <div class="wrapper">
                     <div class="content">
-                <input data-mini="true" id="newPlaceName" type="text"
+                <input data-mini="true" id="newPlaceName" type="text" autofocus
                        style="direction: rtl; text-align: right;" />
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="wrapper">
                     <div class="content">
                         <input data-mini="true" id="address" placeholder="רחוב מספר ישוב" type="text"
-                               style="direction: rtl; text-align: right;" />
+                              style="direction: rtl; text-align: right;" />
                     </div>
                 </div>
 
@@ -66,7 +66,8 @@
         </div>
         <div id="pSearch" class="ui-content">
             <div class="ui-filterable">
-                <input id="filter" data-type="search" placeholder="חפש..." style="direction: rtl; text-align: right;"/>
+                <input id="filter" data-type="search" placeholder="חפש..." autofocus
+                       style="direction: rtl; text-align: right;"/>
             </div>
             <ul data-role="listview" id="list" data-inset="true" data-filter="true" data-filter-reveal="false" data-split-icon="delete"
                       data-input="#filter"></ul>

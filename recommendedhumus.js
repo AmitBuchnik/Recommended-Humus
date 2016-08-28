@@ -561,10 +561,8 @@ $(document).on('pageshow' ,function () {
            case 0: // map
                break;
            case 1: // add
-               $('#newPlaceName').focus();
                break;
            case 2: // search
-               $('#filter').focus();
                break;
        }
     });
