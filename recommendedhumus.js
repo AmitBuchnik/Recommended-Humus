@@ -392,6 +392,8 @@ class HumusPlacesList {
                     return;
                 }
 
+                $("#humusAddedDialog a").off('click');
+
                 // add?
                 $('#addedPlaceName').html(newPlaceName);
                 $('#addedTitle').html('להוסיף?');
