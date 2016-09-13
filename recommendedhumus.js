@@ -561,6 +561,7 @@ $(document).on('pageshow' ,function () {
     $('#tabs').on('tabsactivate', function (event, ui) {
        switch (ui.newTab.index()) {
            case 0: // map
+               $('#mymap').gmap('refresh');
                break;
            case 1: // add
                break;
